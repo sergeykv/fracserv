@@ -15,6 +15,13 @@ type Params interface {
 
 var registry = make(map[string]func(Params) (Fractal, error))
 
+func Names() (res []string) {
+	for k, _ := range registry {
+		res = append(res, k)
+	}
+	return
+}
+
 func RegisterFractal(name string, factory func(Params) (Fractal, error)) {
 	registry[name] = factory
 }

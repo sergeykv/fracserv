@@ -1,0 +1,40 @@
+<html>
+<head>
+</head>
+<body>
+	Fractal parameters:
+	<form id="params" action="">
+		Width: <input type=text value="100" name="w"><br>
+		Height: <input type=text value="200" name="h"><br>
+		Colour: <input type=text value="ffeedd" name="c"><br>
+		<input id="update" type=button value="Update">
+		<input id="png" type=button value="Save as PNG">
+		<input id="jpeg" type=button value="Save as JPEG">
+	</form>
+	<img src="" id="fractal">
+	<script type="text/javascript">
+		var $ = function(id) {
+			return document.getElementById(id);
+		};
+		function formToQuery(form) {
+			var els = form.elements;
+			var values = [];
+			for (var el, i = 0; el = els[i]; i++) {
+				if (el.type == "text") {
+					values.push(el.name + "=" + el.value);
+				}
+			}
+			return values.join("&");
+		}
+		$("update").onclick = function() {
+			$("fractal").src = "/render/solid?" + formToQuery($("params"));
+		};
+		$("png").onclick = function() {
+			window.location = "/png/solid?" + formToQuery($("params"));
+		};
+		$("jpeg").onclick = function() {
+			window.location = "/jpeg/solid?" + formToQuery($("params"));
+		};
+	</script>
+</body>
+</html>
